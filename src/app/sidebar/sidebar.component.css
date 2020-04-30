@@ -1,0 +1,15 @@
+nav{
+  height: 100vh;
+  padding-top: 50px;
+  background-color: #161d25;
+}
+a{
+  color: white;
+}
+a:hover{
+  background-color: #5a5a5a;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #0059b9;
+}
