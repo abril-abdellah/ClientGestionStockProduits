@@ -1,15 +1,22 @@
 nav{
   height: 100vh;
-  padding-top: 50px;
+  padding-top: 20px;
   background-color: #161d25;
 }
 a{
   color: white;
 }
 a:hover{
-  background-color: #5a5a5a;
+  background-color: #404040;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
     background-color: #0059b9;
+}
+.nav-pills .nav-link {
+    border-radius: 0;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 }

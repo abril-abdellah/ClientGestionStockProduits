@@ -1,6 +1,66 @@
-
 <div class="container">
-  <ul>
-    <li *ngFor="let produit of produits">{{produit.ref}} {{produit.quantite}} {{produit.prixUnitaire}}</li>
-  </ul>
+  <div class="row">
+    <div class="col-lg-7">
+      <table class="table table-hover table-bordered">
+        <caption>
+          Gestion des produits, pour ajouter un produit cliquer sur: 
+          <button type="button" class="btn btn-primary btn-sm" (click)="setOperationType('add'); initSelectedProduit()" >Ajouter</button>
+        </caption>
+        <thead class="thead-dark">
+          <th>Référence</th>
+          <th>Quantité</th>
+          <th>Prix Unitaire</th>
+          <th colspan="2">Actions</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let produit of produits">
+            <td>{{produit.ref}}</td>
+            <td>{{produit.quantite}}</td>
+            <td>{{produit.prixUnitaire}}</td>
+            <td><button type="button" class="btn btn-warning btn-sm" (click)="setOperationType('update'); selectedProduit = produit; setCtrlValue();">Modifer</button></td>
+            <td><button type="button" class="btn btn-danger btn-sm" (click)="setOperationType('delete'); selectedProduit = produit; setCtrlValue()">Supprimer</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          {{operationMsg}}
+        </div>
+        <div class="card-body">
+          <div *ngIf="operation==='add' || operation==='update'">
+            <form [formGroup]="produitForm">
+              <div class="form-group">
+                <label>Référence</label>
+                <input type="text" formControlName="ref" class="form-control" [ngClass]="{'is-valid':(getRefCtrl().touched || getRefCtrl().dirty) && getRefCtrl().valid, 'is-invalid':(getRefCtrl().touched || getRefCtrl().dirty) && getRefCtrl().invalid}">
+                <small [ngClass]="{'text-danger':true, 'd-none':getRefCtrl().valid || getRefCtrl().untouched}">Ce champ est requis</small>
+              </div>
+              <div class="form-group">
+                <label>Quantité</label>
+                <input type="number" formControlName="quantite" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Prix Unitaire</label>
+                <input  type="number" formControlName="prixUnitaire" class="form-control">
+              </div>
+              <button (click)="doOperation()" [disabled]="produitForm.pristine || produitForm.invalid" type="button" class="btn btn-success">{{operationMsg}}</button>
+            </form>
+          </div>
+          <div *ngIf="operation==='delete'">
+            <div class="card-item">
+              <p>Référence: {{selectedProduit.ref}}</p>
+              <p class="text-danger">Voulez-vous supprimer ce produit?</p>
+              <button (click)="deleteProduit()" type="button" [disabled]="selectedProduit.ref==null" class="btn btn-danger">Confirmer</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          footer
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
