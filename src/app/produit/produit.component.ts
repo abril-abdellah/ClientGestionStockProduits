@@ -52,23 +52,21 @@ export class ProduitComponent implements OnInit {
     );
   }
   updateProduit(){
-    this.produitService.updateProduit(this.produitForm.value).subscribe(
+    let produit: Produit = new Produit(this.selectedProduit.id, this.getRefCtrl().value, this.getQuantiteCtrl().value, this.getPrixUnitaireCtl().value);
+    this.produitService.updateProduit(produit).subscribe(
       res => {
               this.getAllProduits();
               this.initSelectedProduit();
               },
-      error => console.log("an error was occured while adding produit"),
-      () => console.log("Updating le produit was done")
     );
   }
   deleteProduit(){
-    this.produitService.deleteProduit(this.selectedProduit.ref).subscribe(
+    this.produitService.deleteProduit(this.selectedProduit.id).subscribe(
       res => {
               this.selectedProduit=new Produit();
               this.getAllProduits();
               },
-      error => console.log("an error was occured while adding produit"),
-      () => console.log("Deleting le produit was done")
+
     );
   }
   //operation message
@@ -81,17 +79,19 @@ export class ProduitComponent implements OnInit {
       case 'update':
         this.operationMsg='Modifier le produit';
         this.operation='update';
+        console.log(this.selectedProduit.ref)
         break;
       case 'delete':
         this.operationMsg='Supprimer le produit';
         this.operation='delete';
+        console.log(this.selectedProduit.ref)
         break;
     }
   }
   doOperation(){
-    if(this.operation === 'add')
+    if(this.operation == 'add')
       this.addProduit();
-    else if(this.operation === 'update')
+    else if(this.operation == 'update')
       this.updateProduit();
   }
 

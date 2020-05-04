@@ -14,15 +14,13 @@ export class ProduitService{
     return this.httpClient.get(API_URLS.PRODUITS_URL);
   }
   addProduit(produit: Produit): Observable<any>{
-    console.log(produit);
     return this.httpClient.post(API_URLS.PRODUITS_URL, produit);
   }
   updateProduit(produit: Produit): Observable<any>{
-    console.log(produit);
     return this.httpClient.put(API_URLS.PRODUITS_URL, produit);
   }
-  deleteProduit(ref: string): Observable<any>{
+  deleteProduit(id: number): Observable<any>{
     //console.log(API_URLS.PRODUITS_URL+'/${ref}');
-    return this.httpClient.delete(API_URLS.PRODUITS_URL+'/'+ref);
+    return this.httpClient.delete(API_URLS.PRODUITS_URL+'/'+id);
   }
 }

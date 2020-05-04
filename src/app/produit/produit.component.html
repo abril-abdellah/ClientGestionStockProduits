@@ -3,7 +3,7 @@
     <div class="col-lg-7">
       <table class="table table-hover table-bordered">
         <caption>
-          Gestion des produits, pour ajouter un produit cliquer sur: 
+          Pour ajouter un produit cliquer sur:
           <button type="button" class="btn btn-primary btn-sm" (click)="setOperationType('add'); initSelectedProduit()" >Ajouter</button>
         </caption>
         <thead class="thead-dark">
@@ -17,8 +17,8 @@
             <td>{{produit.ref}}</td>
             <td>{{produit.quantite}}</td>
             <td>{{produit.prixUnitaire}}</td>
-            <td><button type="button" class="btn btn-warning btn-sm" (click)="setOperationType('update'); selectedProduit = produit; setCtrlValue();">Modifer</button></td>
-            <td><button type="button" class="btn btn-danger btn-sm" (click)="setOperationType('delete'); selectedProduit = produit; setCtrlValue()">Supprimer</button></td>
+            <td><button type="button" class="btn btn-warning btn-sm" (click)="selectedProduit = produit; setOperationType('update');  setCtrlValue();">Modifer</button></td>
+            <td><button type="button" class="btn btn-danger btn-sm" (click)="selectedProduit = produit; setOperationType('delete'); setCtrlValue()">Supprimer</button></td>
           </tr>
         </tbody>
       </table>
