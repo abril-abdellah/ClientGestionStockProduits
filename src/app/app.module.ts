@@ -10,10 +10,10 @@ import { Produit } from "./shared/Produit";
 import { ProduitMockService } from "./produit/produit.mock.service";
 import { NgxPopper } from 'angular-popper';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContentComponent } from './content/content.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProduitService } from "./service/produit.service";
+import { UserComponent } from './user/user.component';
 
 
 @NgModule({
@@ -21,9 +21,9 @@ import { ProduitService } from "./service/produit.service";
     AppComponent,
     ProduitComponent,
     NavbarComponent,
-    SidebarComponent,
     ContentComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
