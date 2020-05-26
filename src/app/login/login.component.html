@@ -1,0 +1,14 @@
+<div class="container">
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input type="text" formControlName="username" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="username">Mot de passe</label>
+      <input type="password" formControlName="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Se connecter</button>
+    <p>Si vous n'avez un compte cliquez <a routerLink="/register" >ici</a> pour s'inscrire</p>
+  </form>
+</div>

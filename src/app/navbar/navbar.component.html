@@ -11,12 +11,12 @@
       </li><li class="nav-item">
         <a class="nav-link" routerLink="/produit" routerLinkActive="active">Produits</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/utilisateur" routerLinkActive="active">Uilisateurs</a>
       </li>
     </ul>
   </div>
   <div class="">
-    <button type="button" name="button" class="btn btn-secondary">Se déconnecter</button>
+    <button type="button" name="button" class="btn btn-secondary" (click)="seDeconnecter()">Se déconnecter</button>
   </div>
 </nav>

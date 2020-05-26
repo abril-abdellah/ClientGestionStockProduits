@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-7">
+      <div class="mb-2">
+        Pour ajouter un produit cliquer sur:
+        <button type="button" class="btn btn-primary btn-sm" (click)="setOperationType('add'); initSelectedProduit()" >Ajouter</button>
+      </div>
       <table class="table table-hover table-bordered">
-        <caption>
-          Pour ajouter un produit cliquer sur:
-          <button type="button" class="btn btn-primary btn-sm" (click)="setOperationType('add'); initSelectedProduit()" >Ajouter</button>
-        </caption>
         <thead class="thead-dark">
           <th>Référence</th>
           <th>Quantité</th>
@@ -54,10 +54,6 @@
               <button (click)="deleteProduit()" type="button" [disabled]="selectedProduit.ref==null" class="btn btn-danger">Confirmer</button>
             </div>
           </div>
-
-        </div>
-        <div class="card-footer">
-          footer
         </div>
       </div>
     </div>

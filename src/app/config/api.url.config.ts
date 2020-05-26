@@ -1,4 +1,8 @@
 
 export const API_URLS={
-  PRODUITS_URL:"http://localhost:8080/produits"
+  SECONNECTER_URL:"http://localhost:8080/api/se_connecter",
+  SINSCRIRE_URL:"http://localhost:8080/api/sinscrire",
+  PRODUITS_URL:"http://localhost:8080/api/produits",
+  UTILISATEURS_URL:"http://localhost:8080/api/utilisateurs",
+  UTILISATEUR_URL:"http://localhost:8080/api/utilisateur"
 }

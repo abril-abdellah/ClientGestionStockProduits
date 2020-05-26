@@ -1,1 +1,107 @@
-<p>user works!</p>
+<div class="container mt-4">
+  <table class="table table-hover table-bordered">
+    <thead class="thead-dark">
+      <th>Nom d'utilisateur</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th colspan="2" style="width: 25%">Actions</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>{{getCurrentUserRole(user)}}</td>
+        <td>{{user.active}}</td>
+        <td>
+          <button (click)="modifierBtn(user)" type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifierModal">
+            <i class="fas fa-user-edit"></i>
+            Modifier
+          </button>
+        </td>
+        <td>
+          <button (click)="supprimerBtn(user)" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerModal">
+            <i class="fas fa-user-times"></i>
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modifier Modal -->
+<div class="modal fade" id="modifierModal" tabindex="-1" role="dialog" aria-labelledby="Modifier" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifier l'utilisateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="modifierForm">
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" formControlName="username" class="form-control" id="username">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" id="email">
+          </div>
+          <div class="form-group">
+            <label>Status</label><br>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" formControlName="status" value="active">Activer
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" formControlName="status" value="inactive">Désactiver
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Role</label><br>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" formControlName="role" value="user">Utilisateur
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" formControlName="role" value="admin">Administrateur
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" (click)="modiferUser()" data-dismiss="modal">Confirmer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Supprimer Modal -->
+<div class="modal fade" id="supprimerModal" tabindex="-1" role="dialog" aria-labelledby="Supprimer" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Supprimer l'utilisateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Voulez-vous supprimer l'utilisaeur: {{selectedUser.username}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="supprimerUser()" data-dismiss="modal">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>

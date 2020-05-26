@@ -1,11 +1,14 @@
 
-<div class="conainer-fluid">
+<div class="conainer-fluid"  *ngIf="isLoggedin">
   <div class="row">
     <div class="col-lg-12">
         <app-navbar></app-navbar>
     </div>
   </div>
-    <div class="col-lg-12">
+  <div class="col-lg-12">
       <app-content></app-content>
   </div>
+</div>
+<div>
+  <router-outlet></router-outlet>
 </div>

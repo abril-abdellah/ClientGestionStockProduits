@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProduitService } from "../service/produit.service";
 import { Produit } from "../shared/Produit";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-produit',
@@ -21,8 +20,7 @@ export class ProduitComponent implements OnInit {
   //Le constracteur
   constructor(
     private produitService: ProduitService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private formBuilder: FormBuilder
   ) {
     this.createForm();
    }
@@ -30,7 +28,8 @@ export class ProduitComponent implements OnInit {
   //Les méthodes
   ngOnInit(): void {
     this.initSelectedProduit();
-    this.produits = this.route.snapshot.data.produits;
+    this.getAllProduits();
+    //this.produits = this.route.snapshot.data.produits;
   }
 
   getAllProduits(){

@@ -1,3 +1,26 @@
-<div class="container">
-
+<div class="container mt-5 mb-5" *ngIf="chartReady">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          Les quantités des produits
+        </div>
+        <div class="card-body">
+          <canvas baseChart width="500" height="500" [chartType]="'pie'" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions" [legend]="true">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          Les prix unitaires des produits
+        </div>
+        <div class="card-body">
+          <canvas baseChart width="500" height="500" [chartType]="'radar'" [datasets]="chartData_prix" [labels]="chartLabels" [options]="chartOptions" [legend]="false">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
