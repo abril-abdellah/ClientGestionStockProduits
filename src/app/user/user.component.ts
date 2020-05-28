@@ -2,25 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "../service/user.service";
 import { User } from "../shared/User";
 import { FormGroup, FormBuilder } from "@angular/forms";
-
+import { TokenStorageService } from "../service/token-storage.service";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  //onlyOneUser: boolean = false;
   users;
   modifierForm: FormGroup;
   selectedUser = new User();
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit(): void {
     this.getAllUsers();
     this.createModifierForm();
+
   }
 
 
@@ -33,7 +36,7 @@ export class UserComponent implements OnInit {
   createModifierForm() {
     this.modifierForm = this.formBuilder.group(
       {
-        username: [{value: '', disabled: true}],
+        username: [{ value: '', disabled: true }],
         email: [''],
         status: [''],
         role: ['']
@@ -57,7 +60,7 @@ export class UserComponent implements OnInit {
     else
       this.modifierForm.get('role').setValue('user');
   }
-  supprimerBtn(user){
+  supprimerBtn(user) {
     this.selectedUser = user;
   }
   //Envoyer des Requests Http
@@ -72,7 +75,6 @@ export class UserComponent implements OnInit {
       user.roles = ['admin', 'user'];
     this.userService.updateUser(user).subscribe(
       data => {
-        console.log(data);
         this.getAllUsers();
       },
       error => console.log(error)
@@ -83,7 +85,6 @@ export class UserComponent implements OnInit {
   supprimerUser() {
     this.userService.deleteUser(this.selectedUser.id).subscribe(
       data => {
-        console.log(data);
         this.getAllUsers();
       },
       error => console.log(error)
@@ -95,4 +96,42 @@ export class UserComponent implements OnInit {
     else return 'Utilisateur';
   }
 
+  //La gestion de cas d'un admin || active admin
+  enableSupprimer(user): boolean {
+    if (this.onlyOneAdmin() && user.roles.includes('admin')) {
+      return true;
+    }
+    else if (this.onlyOneAciveAdmin() && user.active && user.roles.includes('admin')) {
+      return true;
+    }
+    return false;
+  }
+  onlyOneAdmin(): boolean {
+    if (this.getAdmins().length == 1) {
+      return true;
+    }
+    return false;
+  }
+  onlyOneAciveAdmin(): boolean {
+    let nbrActives: number = 0;
+    this.getAdmins().forEach(element => {
+      if (element.active) {
+        nbrActives++;
+      }
+    });
+    if (nbrActives == 1) {
+      return true;
+    }
+    return false;
+  }
+  getAdmins(): any[] {
+    let admins: any[] = [];
+    this.users.forEach(element => {
+      if (element.roles.includes('admin')) {
+        admins.push(element);
+      }
+    });
+    return admins;
+  }
+  //////////////////////////////////////////////
 }

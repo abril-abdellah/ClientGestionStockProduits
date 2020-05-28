@@ -15,12 +15,12 @@ export class DashboardComponent implements OnInit {
   quantiteData: number[] = [];
   prixUnitaireData: number[] = [];
   chartLabels = [];
+  noData: boolean = true;
 
   produitsData = [
     { data: this.quantiteData, label: 'Quantité' }
   ];
   produitPrixData = [
-    { data: this.quantiteData, label: 'Quantité' },
     { data: this.prixUnitaireData, label: 'Prix unitaire' }
   ];
   chartOptions = {
@@ -40,7 +40,9 @@ export class DashboardComponent implements OnInit {
   getAllProduits() {
     this.produitService.getAllProduits().subscribe(
       data => {
-        this.produits = data
+        this.produits = data;
+        if (this.produits.length != 0) this.noData = false;
+        else this.noData = true;
         this.produits.forEach(p => {
           this.quantiteData.push(p.quantite);
           this.prixUnitaireData.push(p.prixUnitaire);

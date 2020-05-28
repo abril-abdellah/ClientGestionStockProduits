@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
   credentials = { username: '', password: '' };
+  responseMsg:string ='';
   loginForm = this.formBuilder.group(
     {
       username: [''],
@@ -32,16 +33,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.responseMsg ='';
     this.credentials.username = this.loginForm.get('username').value;
     this.credentials.password = this.loginForm.get('password').value;
     this.authService.login(this.credentials).subscribe(
       (data: any) => {
-        console.log(data);
+        console.log(data.httpStatus);
         this.tokenStorageService.saveToken(data.accessToken);
         this.tokenStorageService.saveUser(data);
         window.location.reload();
       },
-      error => console.log(error)
+      error => this.responseMsg ="Nom d'utilisateur ou mot de passe invalide"
     );
   }
 }

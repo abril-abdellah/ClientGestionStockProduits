@@ -8,7 +8,7 @@
       <th colspan="2" style="width: 25%">Actions</th>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users" >
         <td>{{user.username}}</td>
         <td>{{user.email}}</td>
         <td>{{getCurrentUserRole(user)}}</td>
@@ -20,7 +20,7 @@
           </button>
         </td>
         <td>
-          <button (click)="supprimerBtn(user)" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerModal">
+          <button [disabled]="enableSupprimer(user)" (click)="supprimerBtn(user)" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#supprimerModal">
             <i class="fas fa-user-times"></i>
             Supprimer
           </button>

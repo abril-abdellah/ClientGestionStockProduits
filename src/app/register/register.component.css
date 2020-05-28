@@ -1,0 +1,16 @@
+div.container {
+  width: 500px;
+  margin-top: 30px;
+  border: 2px solid;
+  border-color: #d4d4d4;
+  border-radius: 10px;
+  padding: 50px;
+  background-color: #fbfbfb;
+}
+
+div.container:hover{
+  box-shadow: 0px 0px 15px 0px grey;
+}
+div.container:focus-within{
+  box-shadow: 0px 0px 15px 0px grey;
+}

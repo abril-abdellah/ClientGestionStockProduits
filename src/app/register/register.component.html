@@ -1,21 +1,75 @@
 <div class="container">
+  <h1 class="mb-4">Inscription</h1>
   <form [formGroup]="registerForm">
     <div class="form-group">
       <label for="username">Nom d'utilisaeur</label>
-      <input type="text" formControlName="username" id="username" class="form-control">
+      <input [ngClass]="{'is-valid': (getUsernameCtrl().valid && (getUsernameCtrl().touched || getUsernameCtrl().dirty)),
+                          'is-invalid': (getUsernameCtrl().invalid && (getUsernameCtrl().touched || getUsernameCtrl().dirty))}" type="text" formControlName="username" id="username" class="form-control">
+      <div *ngIf="getUsernameCtrl().invalid && (getUsernameCtrl().touched || getUsernameCtrl().dirty)">
+        <small class="text-danger" *ngIf="getUsernameCtrl().errors.required">
+          Nom d'utilisateur est requis
+        </small>
+        <small class="text-danger" *ngIf="getUsernameCtrl().errors.minlength">
+          Mot de passe contient au minimum 6 caractères
+        </small>
+      </div>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" formControlName="email" id="email" class="form-control">
+      <input [ngClass]="{'is-valid': (getEmailCtrl().valid && (getEmailCtrl().touched || getEmailCtrl().dirty)),
+                          'is-invalid': (getEmailCtrl().invalid && (getEmailCtrl().touched || getEmailCtrl().dirty))}" type="email" formControlName="email" id="email" class="form-control">
+      <div *ngIf="getEmailCtrl().invalid && (getEmailCtrl().touched || getEmailCtrl().dirty)">
+        <small class="text-danger" *ngIf="getEmailCtrl().errors.required">
+          Email est requis
+        </small>
+        <small class="text-danger" *ngIf="getEmailCtrl().errors.email">
+          Email est invalide
+        </small>
+      </div>
     </div>
     <div class="form-group">
       <label for="password">Mot de passe</label>
-      <input type="password" formControlName="password" id="password" class="form-control">
+      <input [ngClass]="{'is-valid': (getPasswordCtrl().valid && (getPasswordCtrl().touched || getPasswordCtrl().dirty)),
+                          'is-invalid': (getPasswordCtrl().invalid && (getPasswordCtrl().touched || getPasswordCtrl().dirty))}" type="password" formControlName="password" id="password" class="form-control">
+      <div *ngIf="getPasswordCtrl().invalid && (getPasswordCtrl().touched || getPasswordCtrl().dirty)">
+        <small class="text-danger" *ngIf="getPasswordCtrl().errors.required">
+          Mot de passe est requis
+        </small>
+        <small class="text-danger" *ngIf="getPasswordCtrl().errors.minlength">
+          Mot de passe contient au minimum 6 caractères
+        </small>
+      </div>
     </div>
     <div class="form-group">
-      <label for="verifiedPassword">Verifier le mot de passe</label>
-      <input type="password" formControlName="verifiedPassword" id="verifiedPassword" class="form-control">
+      <label for="verifiedPassword">Verifiez le mot de passe</label>
+      <input [ngClass]="{'is-valid': !registerForm.errors?.mismatch && (getVerifiedPasswordCtrl().valid && (getVerifiedPasswordCtrl().touched || getVerifiedPasswordCtrl().dirty)),
+                        'is-invalid':(registerForm.errors?.passwordMatch || (getVerifiedPasswordCtrl().invalid) && (getVerifiedPasswordCtrl().touched || getVerifiedPasswordCtrl().dirty))}" type="password" formControlName="verifiedPassword"
+        id="verifiedPassword" class="form-control">
+      <div *ngIf="getVerifiedPasswordCtrl().invalid && (getVerifiedPasswordCtrl().touched || getVerifiedPasswordCtrl().dirty)">
+        <small class="text-danger" *ngIf="getVerifiedPasswordCtrl().errors.required">
+          Vérifiez le mot de passe
+        </small>
+      </div>
+      <small class="text-danger" *ngIf="registerForm.errors?.mismatch && getVerifiedPasswordCtrl().value">
+        Les mots de passe ne sont pas les mêmes
+      </small>
     </div>
-    <button type="button" class="btn btn-primary" (click)="sauvegarder()">S'inscrire</button>
+    <div class="mt-4">
+      <button type="button" class="btn btn-primary mr-2" (click)="sauvegarder()" data-toggle="modal" data-target="#sinscrireMsg">S'inscrire</button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="annuler()">Annuler</button>
+    </div>
+
   </form>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="sinscrireMsg">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>{{msgPopup}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="done()">Ok</button>
+      </div>
+    </div>
+  </div>
 </div>

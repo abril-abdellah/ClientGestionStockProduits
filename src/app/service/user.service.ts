@@ -15,7 +15,7 @@ export class UserService {
     return this.http.get(API_URLS.UTILISATEURS_URL);
   }
   addUser(user) {
-    return this.http.post(API_URLS.SINSCRIRE_URL, user);
+    return this.http.post(API_URLS.SINSCRIRE_URL, user, {observe:'response'});
   }
   updateUser(user) {
     return this.http.put(API_URLS.UTILISATEUR_URL, user);
